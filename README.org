@@ -2,9 +2,11 @@
 
 * Binary Clock
 A simple bash script that will draw you an unusual clock format.
+
+The time will be shown in the format from top to bottom - [seconds, minutes, hours] and [day, month, year].
 ** Installing
 - Make a git clone in any directory
-- Copy **binaryclock.ttf** in **~/.local/share/fonts**
+- Copy *binaryclock.ttf* in *~/.local/share/fonts*
 - Add the font to your config, something like this:
 #+begin_src conf
 font-3 = binaryclock:style=Regular:size=26;10
