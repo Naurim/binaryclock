@@ -1,4 +1,4 @@
-[[./Demonstration_font-light.gif][Light Font]]  [[./Demonstration_font-regular.gif][Regular Font]]
+[[./Demonstration_font-light.gif]] [[./Demonstration_font-regular.gif]]
 
 * Binary Clock
 A simple bash script that will draw you an unusual clock format.
