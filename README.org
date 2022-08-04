@@ -3,10 +3,13 @@
 * Binary Clock
 A simple bash script that will draw you an unusual clock format.
 
-The time will be shown in the format from top to bottom - [seconds, minutes, hours] and [day, month, year].
+You can choose in which order and exactly which things you want to
+display. For example, the ~binaryclock.sh time week-v date~ will show:
+[[./Describe.png]]
+And ~binaryclock.sh time~ will only show time
 ** Installing
 - Make a git clone in any directory
-- Copy *Binary Clock* in *~/.local/share/fonts*
+- Copy *Binary_Clock* in *~/.local/share/fonts*
 - Add the font to your config, something like this:
 #+begin_src conf
 font-3 = Binary Clock Regular:size=26;10
@@ -19,7 +22,7 @@ font-3 = Binary Clock Light:size=26;10
 #+begin_src conf
 [module/binaryclock]
 type = custom/script
-exec = path/to/binaryclock.sh
+exec = path/to/binaryclock.sh time week-v date
 interval = 1
 #+end_src
 - Enjoy!
