@@ -5,7 +5,9 @@ A simple bash script that will draw you an unusual clock format.
 
 You can choose in which order and exactly which things you want to
 display. For example, the ~binaryclock.sh time week-v date~ will show:
+
 [[./Describe.png]]
+
 And ~binaryclock.sh time~ will only show time
 ** Installing
 - Make a git clone in any directory
