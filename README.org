@@ -12,14 +12,9 @@ And ~binaryclock.sh time~ will only show time
 ** Installing
 - Make a git clone in any directory
 - Copy *Binary_Clock* in *~/.local/share/fonts*
-- Add the font to your config, something like this:
-#+begin_src conf
-font-3 = Binary Clock Regular:size=26;10
-#+end_src
-  Or this
-#+begin_src conf
-font-3 = Binary Clock Light:size=26;10
-#+end_src
+- Add the font to your config, something like
+  - ~font-3 = Binary Clock Regular:size=26;10~
+  - or ~font-3 = Binary Clock Light:size=26;10~
 - Describe the new module
 #+begin_src conf
 [module/binaryclock]

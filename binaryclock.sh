@@ -7,151 +7,77 @@ week_horizontal=("error" "○○●" "○●○" "○●●" "●○○" "●○
 
 font=(["000"]='' ["001"]='' ["010"]='' ["011"]='' ["100"]='' ["101"]='' ["110"]='' ["111"]='')
 
-case "$1" in
-    time)
-        hour=$(date +%H | sed "s/^0*//g")
-        minute=$(date +%M | sed "s/^0*//g")
-        second=$(date +%S | sed "s/^0*//g")
+echo_help() {
+    echo "Select options:"
+    echo "  time         - to display the time"
+    echo "  date         - to display the date"
+    echo "  week-v       - to display the day of the week vertically"
+    echo "  week-h       - to display the day of the week horizontally"
+    echo "  -h or --help - to display this message"
+    echo "Example: binaryclock.sh time week-v date"
+    echo "         binaryclock.sh time date"
+    echo "         binaryclock.sh date time"
+    echo "         binaryclock.sh time week-h"
+    exit 1
+}
 
-        hour_binary=${binary[$hour]}
-        minute_binary=${binary[$minute]}
-        second_binary=${binary[$second]}
+if [[ -z "$@" ]]; then
+    echo "Nothing is chosen"
+    echo_help
+else
+    for arg in "$@" ; do
+        case "$arg" in
+            time)
+                hour=$(date +%H | sed "s/^0*//g")
+                minute=$(date +%M | sed "s/^0*//g")
+                second=$(date +%S | sed "s/^0*//g")
 
-        for ((i=0 ; i<6 ; i++)); do
-            time_binary[$i]="${hour_binary:$i:1}${minute_binary:$i:1}${second_binary:$i:1}"
-            time_font="$time_font${font[${time_binary[$i]}]}"
-        done
-        result="$time_font"
-    ;;
-    date)
-        year=$(date +%y | sed "s/^0*//g")
-        month=$(date +%m | sed "s/^0*//g")
-        day=$(date +%d | sed "s/^0*//g")
+                hour_binary=${binary[$hour]}
+                minute_binary=${binary[$minute]}
+                second_binary=${binary[$second]}
 
-        year_binary=${binary[$year]}
-        month_binary=${binary[$month]}
-        day_binary=${binary[$day]}
+                for ((i=0 ; i<6 ; i++)); do
+                    time_binary[$i]="${hour_binary:$i:1}${minute_binary:$i:1}${second_binary:$i:1}"
+                    time_font="$time_font${font[${time_binary[$i]}]}"
+                done
+                result="$result  $time_font"
+                ;;
+            date)
+                year=$(date +%y | sed "s/^0*//g")
+                month=$(date +%m | sed "s/^0*//g")
+                day=$(date +%d | sed "s/^0*//g")
 
-        for ((i=0 ; i<6 ; i++)); do
-            date_binary[$i]="${year_binary:$i:1}${month_binary:$i:1}${day_binary:$i:1}"
-            date_font="$date_font${font[${date_binary[$i]}]}"
-        done
-        result="$date_font"
-    ;;
-    week-v)
-        week=$(date +%u)
+                year_binary=${binary[$year]}
+                month_binary=${binary[$month]}
+                day_binary=${binary[$day]}
 
-        week_font="${week_vertical[$week]}"
-        result="$week_font"
-    ;;
-    week-h)
-        week=$(date +%u)
+                for ((i=0 ; i<6 ; i++)); do
+                    date_binary[$i]="${year_binary:$i:1}${month_binary:$i:1}${day_binary:$i:1}"
+                    date_font="$date_font${font[${date_binary[$i]}]}"
+                done
+                result="$result   $date_font"
+                ;;
+            week-v)
+                week=$(date +%u)
 
-        week_font="${week_horizontal[$week]}"
-        result="$week_font"
-    ;;
-    *)
-        echo "Nothing is chosen"
-        echo "Select options in the amount from 1 to 3:"
-        echo "  time    - to display the time"
-        echo "  date    - to display the date"
-        echo "  week-v  - to display the day of the week vertically"
-        echo "  week-h  - to display the day of the week horizontally"
-        echo "Example: binaryclock.sh time week-v date"
-        echo "         binaryclock.sh time date"
-        echo "         binaryclock.sh date time"
-        echo "         binaryclock.sh time week-h"
-    ;;
-esac
+                week_font="${week_vertical[$week]}"
+                result="$result   $week_font"
+                ;;
+            week-h)
+                week=$(date +%u)
 
-case "$2" in
-    time)
-        hour=$(date +%H | sed "s/^0*//g")
-        minute=$(date +%M | sed "s/^0*//g")
-        second=$(date +%S | sed "s/^0*//g")
-
-        hour_binary=${binary[$hour]}
-        minute_binary=${binary[$minute]}
-        second_binary=${binary[$second]}
-
-        for ((i=0 ; i<6 ; i++)); do
-            time_binary[$i]="${hour_binary:$i:1}${minute_binary:$i:1}${second_binary:$i:1}"
-            time_font="$time_font${font[${time_binary[$i]}]}"
-        done
-        result="$result  $time_font"
-    ;;
-    date)
-        year=$(date +%y | sed "s/^0*//g")
-        month=$(date +%m | sed "s/^0*//g")
-        day=$(date +%d | sed "s/^0*//g")
-
-        year_binary=${binary[$year]}
-        month_binary=${binary[$month]}
-        day_binary=${binary[$day]}
-
-        for ((i=0 ; i<6 ; i++)); do
-            date_binary[$i]="${year_binary:$i:1}${month_binary:$i:1}${day_binary:$i:1}"
-            date_font="$date_font${font[${date_binary[$i]}]}"
-        done
-        result="$result  $date_font"
-    ;;
-    week-v)
-        week=$(date +%u)
-
-        week_font="${week_vertical[$week]}"
-        result="$result  $week_font"
-    ;;
-    week-h)
-        week=$(date +%u)
-
-        week_font="${week_horizontal[$week]}"
-        result="$result  $week_font"
-    ;;
-esac
-
-case "$3" in
-    time)
-        hour=$(date +%H | sed "s/^0*//g")
-        minute=$(date +%M | sed "s/^0*//g")
-        second=$(date +%S | sed "s/^0*//g")
-
-        hour_binary=${binary[$hour]}
-        minute_binary=${binary[$minute]}
-        second_binary=${binary[$second]}
-
-        for ((i=0 ; i<6 ; i++)); do
-            time_binary[$i]="${hour_binary:$i:1}${minute_binary:$i:1}${second_binary:$i:1}"
-            time_font="$time_font${font[${time_binary[$i]}]}"
-        done
-        result="$result  $time_font"
-    ;;
-    date)
-        year=$(date +%y | sed "s/^0*//g")
-        month=$(date +%m | sed "s/^0*//g")
-        day=$(date +%d | sed "s/^0*//g")
-
-        year_binary=${binary[$year]}
-        month_binary=${binary[$month]}
-        day_binary=${binary[$day]}
-
-        for ((i=0 ; i<6 ; i++)); do
-            date_binary[$i]="${year_binary:$i:1}${month_binary:$i:1}${day_binary:$i:1}"
-            date_font="$date_font${font[${date_binary[$i]}]}"
-        done
-        result="$result  $date_font"
-    ;;
-    week-v)
-        week=$(date +%u)
-
-        week_font="${week_vertical[$week]}"
-        result="$result  $week_font"
-    ;;
-    week-h)
-        week=$(date +%u)
-
-        week_font="${week_horizontal[$week]}"
-        result="$result  $week_font"
-    ;;
-esac
+                week_font="${week_horizontal[$week]}"
+                result="$result   $week_font"
+                ;;
+            --help | -h)
+                echo_help
+                ;;
+            *)
+                echo "Wrong argument \"$1\""
+                echo_help
+                ;;
+        esac
+    done
+fi
 
 echo $result
